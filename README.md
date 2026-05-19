@@ -52,15 +52,25 @@ O projeto segue o padrão **MVC** e está sendo construído com autenticação, 
 ---
 
 ## 📁 Estrutura do projeto
+
 src/
+
 ├── app/
+
 │   ├── controllers/
+
 │   └── models/
+
 ├── config/
+
 ├── database/
+
 │   └── migrations/
+
 ├── app.js
+
 ├── routes.js
+
 └── server.js
 ---
 
