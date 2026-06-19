@@ -38,13 +38,13 @@ O projeto segue o padrão **MVC** e está sendo construído com autenticação, 
 - [x] Criação de usuários com validação de dados (Yup)
 - [x] Verificação de email duplicado
 - [x] Resposta segura sem exposição de senha
+- [x] Login de usuários
 
 ---
 
 ## 🚧 Em desenvolvimento
 
 - [ ] Autenticação JWT
-- [ ] Login de usuários
 - [ ] Gestão de produtos
 - [ ] Upload de imagem
 - [ ] Controle de pedidos
