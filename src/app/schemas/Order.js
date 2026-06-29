@@ -19,15 +19,15 @@ const OrderSchema = new mongoose.Schema(
           required: true,
         },
         name: {
-          type: Number,
+          type: String,
           required: true,
         },
         price: {
-          type: Number,
+          type: String,
           required: true,
         },
         category: {
-          type: Number,
+          type: String,
           required: true,
         },
         quantity: {
@@ -35,7 +35,7 @@ const OrderSchema = new mongoose.Schema(
           required: true,
         },
         url: {
-          type: Number,
+          type: String,
           required: true,
         },
       },
