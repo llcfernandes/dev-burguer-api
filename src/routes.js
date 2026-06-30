@@ -2,19 +2,19 @@ import { Router } from 'express';
 import UserController from './app/controllers/UserController.js';
 import SessionController from './app/controllers/SessionController.js';
 import ProductController from './app/controllers/ProductController.js';
+import CategoryController from './app/controllers/CategoryController.js';
+import OrderController from './app/controllers/OrderController.js';
 import multer from 'multer';
 import multerConfig from './config/multer.cjs';
-import authMiddleware from './middlewares/auth.js';
-import CategoryController from './app/controllers/CategoryController.js';
-import adminMiddleware from './middlewares/admin.js';
-import OrderController from './app/controllers/OrderController.js';
+import authMiddleware from './app/middlewares/auth.js';
+import adminMiddleware from './app/middlewares/admin.js';
 
 const routes = new Router();
 
 const upload = multer(multerConfig);
 
 routes.post('/users', UserController.store);
-routes.post('/session', SessionController.store);
+routes.post('/sessions', SessionController.store);
 
 routes.use(authMiddleware);
 routes.post(
@@ -46,6 +46,8 @@ routes.put(
 );
 routes.get('/categories', CategoryController.index);
 
-routes.post('/orders', adminMiddleware, OrderController.store);
+routes.post('/orders', OrderController.store);
+routes.get('/orders', OrderController.index);
+routes.put('/orders/:id', adminMiddleware, OrderController.update);
 
 export default routes;
