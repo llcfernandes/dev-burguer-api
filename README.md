@@ -1,122 +1,164 @@
 # 🍔 Dev Burguer API
 
-API RESTful para gerenciamento de usuários e produtos de uma hamburgueria, desenvolvida utilizando Node.js, Express e PostgreSQL.
+API RESTful para gerenciamento completo de uma plataforma de pedidos para hamburgueria, desenvolvida com Node.js, Express, PostgreSQL e MongoDB.
 
-O projeto aplica conceitos utilizados em aplicações reais, incluindo autenticação JWT, upload de imagens, arquitetura MVC, validação de dados, ORM, controle de acesso e boas práticas de segurança.
+O projeto simula a arquitetura utilizada em aplicações reais de e-commerce e delivery, implementando autenticação JWT, autorização por níveis de acesso, upload de imagens, relacionamento entre entidades, persistência híbrida de dados (SQL e NoSQL), arquitetura MVC e boas práticas de segurança.
 
 ![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
 ![Express](https://img.shields.io/badge/Express-5.x-black)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-blue)
+![MongoDB](https://img.shields.io/badge/MongoDB-NoSQL-green)
 ![Sequelize](https://img.shields.io/badge/Sequelize-ORM-blue)
+![Mongoose](https://img.shields.io/badge/Mongoose-ODM-darkred)
 ![JWT](https://img.shields.io/badge/JWT-Authentication-orange)
-![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
+![Status](https://img.shields.io/badge/Status-Backend%20Concluído-success)
 
 ---
 
-## 🚀 Principais funcionalidades
+# 🚀 Funcionalidades
 
-### 👤 Gestão de usuários
+## 👤 Gestão de usuários
 
 - Cadastro de usuários
-- Validação de dados utilizando Yup
-- Criptografia de senha com BCrypt
-- Verificação de email duplicado
-- Proteção contra exposição de senha
-
-### 🔐 Autenticação
-
-- Login com email e senha
-- Geração de token JWT
-- Expiração automática de sessão
-- Middleware de autenticação
-- Proteção de rotas privadas
-
-### 🍔 Gestão de produtos
-
-- Cadastro de produtos
-- Listagem de produtos
-- Upload de imagens com Multer
-- Geração automática de URL para imagens
-- Armazenamento local de arquivos
-
-### 🛡️ Segurança
-
-- Hash de senhas utilizando BCrypt
-- Tokens JWT assinados
-- Validação de credenciais
-- Mensagens genéricas para evitar enumeração de usuários
-- Controle de acesso por autenticação
+- Validação de dados com Yup
+- Criptografia de senhas utilizando BCrypt
+- Verificação de e-mail duplicado
+- Login com autenticação JWT
 
 ---
 
-## 🏗️ Arquitetura
+## 🔐 Autenticação e autorização
 
-O projeto segue o padrão MVC (Model-View-Controller), separando responsabilidades e facilitando manutenção e escalabilidade.
+- Login com JWT
+- Middleware de autenticação
+- Rotas protegidas
+- Controle de acesso por nível de usuário (Admin/User)
+- Sessões autenticadas via Bearer Token
+
+---
+
+## 🍔 Gestão de produtos
+
+- Cadastro de produtos
+- Atualização de produtos
+- Listagem de produtos
+- Upload de imagens
+- Associação entre produtos e categorias
+- Produtos em oferta
+- URL virtual para imagens
+
+---
+
+## 🗂️ Gestão de categorias
+
+- Cadastro de categorias
+- Atualização de categorias
+- Upload de imagem
+- Listagem de categorias
+- Validação de categorias duplicadas
+
+---
+
+## 🛒 Sistema de pedidos
+
+- Criação de pedidos
+- Persistência utilizando MongoDB
+- Atualização do status do pedido
+- Listagem de pedidos
+- Associação automática entre usuário e pedido
+- Busca automática dos produtos cadastrados no PostgreSQL
+- Armazenamento apenas das informações necessárias no pedido
+
+---
+
+## 🔒 Segurança
+
+- Hash de senhas com BCrypt
+- JWT assinado
+- Middleware de autenticação
+- Middleware de administrador
+- Validação completa de dados
+- Proteção de rotas privadas
+
+---
+
+# 🏗️ Arquitetura
+
+O projeto segue a arquitetura MVC, separando responsabilidades e facilitando manutenção, escalabilidade e reutilização de código.
 
 ```text
 Request
-   ↓
+    ↓
 Routes
-   ↓
+    ↓
 Middlewares
-   ↓
+    ↓
 Controllers
-   ↓
+    ↓
 Models (Sequelize)
-   ↓
-PostgreSQL
+        ↓
+ PostgreSQL
+
+Schemas (Mongoose)
+        ↓
+ MongoDB
 ```
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+# 🛠️ Tecnologias
 
-### Backend
+## Backend
 
 - Node.js
 - Express
-- Sequelize ORM
+
+## Banco de dados
+
 - PostgreSQL
+- MongoDB
 
-### Segurança
+## ORM / ODM
 
+- Sequelize
+- Mongoose
+
+## Segurança
+
+- JWT
 - BCrypt
-- JSON Web Token (JWT)
 
-### Upload de Arquivos
+## Upload de arquivos
 
 - Multer
 
-### Validação
+## Validação
 
 - Yup
 
-### Utilitários
+## Desenvolvimento
 
+- Docker
 - UUID
 - Biome
 
-### Ambiente
-
-- Docker
-
 ---
 
-## 📂 Estrutura do projeto
+# 📂 Estrutura
 
 ```text
 src
 │
 ├── app
 │   ├── controllers
-│   └── models
+│   ├── middlewares
+│   ├── models
+│   └── schemas
 │
 ├── config
 │
 ├── database
 │   └── migrations
-│
-├── middlewares
 │
 ├── uploads
 │
@@ -127,85 +169,135 @@ src
 
 ---
 
-## 🔑 Fluxo de autenticação
+# 🔑 Fluxo de autenticação
 
 ```text
-Usuário faz login
-        ↓
-API valida credenciais
-        ↓
-JWT é gerado
-        ↓
-Token é enviado ao cliente
-        ↓
-Cliente envia Bearer Token
-        ↓
-Middleware valida JWT
-        ↓
-Acesso liberado
+Login
+   ↓
+Validação das credenciais
+   ↓
+JWT
+   ↓
+Bearer Token
+   ↓
+Middleware
+   ↓
+Acesso às rotas protegidas
 ```
 
 ---
 
-## 🖼️ Fluxo de upload de imagens
+# 📦 Fluxo de pedidos
 
 ```text
-Imagem enviada
-       ↓
-Multer recebe arquivo
-       ↓
-UUID é gerado
-       ↓
-Arquivo salvo em uploads
-       ↓
-Path salvo no banco
-       ↓
-URL virtual criada pelo Sequelize
-       ↓
-Frontend consome a imagem
+Cliente envia produtos
+          ↓
+API recebe apenas ID e quantidade
+          ↓
+Produtos são buscados no PostgreSQL
+          ↓
+Pedido é montado no backend
+          ↓
+Pedido salvo no MongoDB
 ```
 
 ---
 
-## 📋 Endpoints disponíveis
+# 🖼️ Fluxo de upload
 
-### Usuários
+```text
+Upload
+   ↓
+Multer
+   ↓
+UUID
+   ↓
+Uploads
+   ↓
+Path salvo
+   ↓
+URL virtual
+   ↓
+Frontend
+```
 
-| Método | Rota | Descrição |
-|----------|----------|----------|
-| POST | /users | Criar usuário |
+---
 
-### Sessão
+# 📋 Endpoints
 
-| Método | Rota | Descrição |
-|----------|----------|----------|
-| POST | /session | Realizar login |
+## Usuários
 
-### Produtos
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | /users | Cadastro de usuário |
 
-| Método | Rota | Descrição |
-|----------|----------|----------|
-| POST | /products | Criar produto |
+---
+
+## Sessões
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | /sessions | Login |
+
+---
+
+## Produtos
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | /products | Criar produto *(Admin)* |
+| PUT | /products/:id | Atualizar produto *(Admin)* |
 | GET | /products | Listar produtos |
 
-> As rotas de produtos são protegidas por autenticação JWT.
+---
+
+## Categorias
+
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | /categories | Criar categoria *(Admin)* |
+| PUT | /categories/:id | Atualizar categoria *(Admin)* |
+| GET | /categories | Listar categorias |
 
 ---
 
-## 🚧 Próximas implementações
+## Pedidos
 
-- Categorias de produtos
-- Controle de permissões (Admin/User)
-- Atualização de produtos
-- Remoção de produtos
-- Sistema de pedidos
-- Integração com frontend React
-- Deploy em ambiente cloud
+| Método | Endpoint | Descrição |
+|---------|----------|-----------|
+| POST | /orders | Criar pedido |
+| PUT | /orders/:id | Atualizar status *(Admin)* |
+| GET | /orders | Listar pedidos |
 
 ---
 
-## 👨‍💻 Autor
+# 📌 Destaques técnicos
+
+- Arquitetura MVC
+- PostgreSQL para dados relacionais
+- MongoDB para gerenciamento de pedidos
+- Relacionamentos entre entidades com Sequelize
+- Upload de imagens com Multer
+- Autorização baseada em permissões
+- Validação completa utilizando Yup
+- API REST seguindo boas práticas de organização e escalabilidade
+
+---
+
+# 🚀 Próximas implementações
+
+- Front-end completo em React
+- Dashboard administrativo
+- Paginação
+- Filtros e pesquisa
+- Exclusão de produtos e categorias
+- Integração com serviço de pagamentos
+- Deploy em ambiente cloud (Frontend + Backend + Banco)
+
+---
+
+# 👨‍💻 Autor
 
 Desenvolvido por **Lucas Fernandes** durante a formação Full Stack do DevClub.
 
-📌 Projeto construído com foco em aprendizado de arquitetura backend, autenticação, segurança e desenvolvimento de APIs REST.
+Este é meu principal projeto de backend até o momento e foi desenvolvido para simular a arquitetura de uma aplicação real de delivery, utilizando tecnologias amplamente adotadas pelo mercado e boas práticas de desenvolvimento de APIs REST.
